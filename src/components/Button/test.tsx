@@ -1,5 +1,5 @@
 import { screen } from '@testing-library/react'
-import { renderWithTheme } from 'utils/tests/helper'
+import { renderWithTheme } from 'utils/tests/helpers'
 import { AddShoppingCart } from '@styled-icons/material/AddShoppingCart'
 import Button from '.'
 
@@ -49,5 +49,17 @@ describe('<Button />', () => {
     )
     expect(screen.getByText(/By now/i)).toBeInTheDocument()
     expect(screen.getByTestId('icon')).toBeInTheDocument()
+  })
+
+  it('should render button as link', () => {
+    renderWithTheme(
+      <Button as="a" href="/link">
+        By now
+      </Button>
+    )
+    expect(screen.getByRole('link', { name: /By now/i })).toHaveAttribute(
+      'href',
+      '/link'
+    )
   })
 })
