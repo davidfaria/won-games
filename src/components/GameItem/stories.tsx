@@ -12,3 +12,17 @@ export default {
 } as Meta
 
 export const Default: Story<GameItemProps> = (args) => <GameItem {...args} />
+
+export const withPayment: Story<GameItemProps> = (args) => (
+  <GameItem {...args} />
+)
+
+withPayment.args = {
+  downloadLink: 'https://wongames.com/game/download/my-game-top-five',
+  paymentInfo: {
+    flag: 'mastercard',
+    img: '/img/master-card.png',
+    number: '**** **** **** 4326',
+    purchaseDate: 'Purchase made on 07/20/2020 at 20:32'
+  }
+}

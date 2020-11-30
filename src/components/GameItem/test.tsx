@@ -9,11 +9,48 @@ const props = {
 }
 
 describe('<GameItem />', () => {
-  fit('should render the item', () => {
+  it('should render the item', () => {
     renderWithTheme(<GameItem {...props} />)
-
     //verificar o title se foi renderizado
+    expect(
+      screen.getByRole('heading', { name: /Red Dead Redemption 2/i })
+    ).toBeInTheDocument()
+
     //verificar a image
+    expect(
+      screen.getByRole('img', { name: /Red Dead Redemption 2/i })
+    ).toHaveAttribute(
+      'src',
+      'https://source.unsplash.com/user/willianjusten/151x70'
+    )
+
     //verificar o preço
+    expect(screen.getByText('R$ 215,00')).toBeInTheDocument()
+  })
+
+  it('should render the item with download link', () => {
+    const link = 'https://link'
+    renderWithTheme(<GameItem {...props} downloadLink={link} />)
+
+    expect(
+      screen.getByRole('link', { name: `Get ${props.title} here` })
+    ).toHaveAttribute('href', link)
+  })
+
+  it('should render the item with payment info', () => {
+    const paymentInfo = {
+      flag: 'mastercard',
+      img: '/img/master-card.png',
+      number: '**** **** **** 4326',
+      purchaseDate: 'Purchase made on 07/20/2020 at 20:32'
+    }
+    renderWithTheme(<GameItem {...props} paymentInfo={paymentInfo} />)
+
+    expect(
+      screen.getByRole('img', { name: paymentInfo.flag })
+    ).toBeInTheDocument()
+
+    expect(screen.getByText(paymentInfo.number)).toBeInTheDocument()
+    expect(screen.getByText(paymentInfo.purchaseDate)).toBeInTheDocument()
   })
 })
