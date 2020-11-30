@@ -1,32 +1,33 @@
 import { screen } from '@testing-library/react'
 import { renderWithTheme } from 'utils/tests/helpers'
+
 import Heading from '.'
 
 describe('<Heading />', () => {
-  it('should render a black heading is default', () => {
+  it('should render a white heading by default', () => {
     renderWithTheme(<Heading>Won Games</Heading>)
-    expect(screen.getByRole('heading', { name: /Won Games/i })).toHaveStyle({
-      color: '#030517'
-    })
-  })
-
-  it('should render a white heading when color is passed', () => {
-    renderWithTheme(<Heading color="white">Won Games</Heading>)
-    expect(screen.getByRole('heading', { name: /Won Games/i })).toHaveStyle({
+    expect(screen.getByRole('heading', { name: /won games/i })).toHaveStyle({
       color: '#FAFAFA'
     })
   })
 
-  it('should render heading with a line to the left side', () => {
+  it('should render a black heading when color is passed', () => {
+    renderWithTheme(<Heading color="black">Won Games</Heading>)
+    expect(screen.getByRole('heading', { name: /won games/i })).toHaveStyle({
+      color: '#030517'
+    })
+  })
+
+  it('should render a heading with a line to the left side', () => {
     renderWithTheme(<Heading lineLeft>Won Games</Heading>)
-    expect(screen.getByRole('heading', { name: /Won Games/i })).toHaveStyle({
+    expect(screen.getByRole('heading', { name: /won games/i })).toHaveStyle({
       'border-left': '0.7rem solid #F231A5'
     })
   })
 
-  it('should render heading with a line to the bottom', () => {
+  it('should render a heading with a line at the bottom', () => {
     renderWithTheme(<Heading lineBottom>Won Games</Heading>)
-    expect(screen.getByRole('heading', { name: /Won Games/i })).toHaveStyleRule(
+    expect(screen.getByRole('heading', { name: /won games/i })).toHaveStyleRule(
       'border-bottom',
       '0.5rem solid #F231A5',
       {
@@ -35,16 +36,13 @@ describe('<Heading />', () => {
     )
   })
 
-  it('should render heading with a small size', () => {
-    renderWithTheme(
-      <Heading size="small" lineBottom>
-        Won Games
-      </Heading>
-    )
-    expect(screen.getByRole('heading', { name: /Won Games/i })).toHaveStyle({
+  it('should render a heading with a small size', () => {
+    renderWithTheme(<Heading size="small">Won Games</Heading>)
+    expect(screen.getByRole('heading', { name: /won games/i })).toHaveStyle({
       'font-size': '1.6rem'
     })
-    expect(screen.getByRole('heading', { name: /Won Games/i })).toHaveStyleRule(
+
+    expect(screen.getByRole('heading', { name: /won games/i })).toHaveStyleRule(
       'width',
       '3rem',
       {
@@ -53,14 +51,22 @@ describe('<Heading />', () => {
     )
   })
 
+  it('should render a heading with a huge size', () => {
+    renderWithTheme(<Heading size="huge">Won Games</Heading>)
+
+    expect(screen.getByRole('heading', { name: /won games/i })).toHaveStyle({
+      'font-size': '5.2rem'
+    })
+  })
+
   it('should render a Heading with a primary line color', () => {
     renderWithTheme(
       <Heading lineColor="primary" lineLeft lineBottom>
-        Won Games
+        Lorem Ipsum
       </Heading>
     )
 
-    const heading = screen.getByRole('heading', { name: /won games/i })
+    const heading = screen.getByRole('heading', { name: /lorem ipsum/i })
     expect(heading).toHaveStyle({ 'border-left': '0.7rem solid #F231A5' })
     expect(heading).toHaveStyleRule('border-bottom', '0.5rem solid #F231A5', {
       modifier: '::after'
@@ -70,11 +76,11 @@ describe('<Heading />', () => {
   it('should render a Heading with a secondary line color', () => {
     renderWithTheme(
       <Heading lineColor="secondary" lineLeft lineBottom>
-        Won Games
+        Lorem Ipsum
       </Heading>
     )
 
-    const heading = screen.getByRole('heading', { name: /won games/i })
+    const heading = screen.getByRole('heading', { name: /lorem ipsum/i })
     expect(heading).toHaveStyle({ 'border-left': '0.7rem solid #3CD3C1' })
     expect(heading).toHaveStyleRule('border-bottom', '0.5rem solid #3CD3C1', {
       modifier: '::after'

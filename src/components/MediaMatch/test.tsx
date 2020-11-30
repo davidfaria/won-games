@@ -6,6 +6,7 @@ describe('<MediaMatch />', () => {
   let desktopHeading: Element
   let mobileHeading: Element
 
+  // hook tests
   beforeEach(() => {
     render(
       <>
@@ -27,7 +28,7 @@ describe('<MediaMatch />', () => {
     expect(mobileHeading.parentElement).toHaveStyleRule('display', 'none')
   })
 
-  it('should  show or hide on the media passed', () => {
+  it('should show or hide based on the media passed', () => {
     expect(desktopHeading.parentElement).toHaveStyleRule('display', 'block', {
       media: '(min-width: 768px)'
     })

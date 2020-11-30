@@ -1,7 +1,8 @@
 import Link from 'next/link'
-import * as S from './styles'
-import Logo from 'components/Logo'
+
 import Heading from 'components/Heading'
+import Logo from 'components/Logo'
+import * as S from './styles'
 
 const Footer = () => (
   <S.Wrapper>

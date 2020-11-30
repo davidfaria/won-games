@@ -8,23 +8,25 @@ const props = {
   title: 'Heading 1',
   subtitle: 'Heading 2',
   backgroundImage: '/img/red-dead-img.jpg',
-  buttonLabel: 'By now',
-  buttonLink: '/link'
+  buttonLabel: 'Buy now',
+  buttonLink: '/rdr2'
 }
 
 describe('<Highlight />', () => {
   it('should render headings and button', () => {
-    renderWithTheme(<Highlight {...props} />)
+    const { container } = renderWithTheme(<Highlight {...props} />)
 
     expect(
-      screen.getByRole('heading', { name: /Heading 1/i })
+      screen.getByRole('heading', { name: /heading 1/i })
     ).toBeInTheDocument()
 
     expect(
-      screen.getByRole('heading', { name: /Heading 2/i })
+      screen.getByRole('heading', { name: /heading 2/i })
     ).toBeInTheDocument()
 
-    expect(screen.getByRole('link', { name: /By now/i })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /buy now/i })).toBeInTheDocument()
+
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it('should render background image', () => {
@@ -34,6 +36,16 @@ describe('<Highlight />', () => {
       backgroundImage: `url(${props.backgroundImage})`
     })
   })
+
+  it('should render float image', () => {
+    renderWithTheme(<Highlight {...props} floatImage="/float-image.png" />)
+
+    expect(screen.getByRole('img', { name: props.title })).toHaveAttribute(
+      'src',
+      '/float-image.png'
+    )
+  })
+
   it('should render align right by default', () => {
     const { container } = renderWithTheme(<Highlight {...props} />)
 

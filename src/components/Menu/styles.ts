@@ -7,8 +7,10 @@ export const Wrapper = styled.menu`
     align-items: center;
     padding: ${theme.spacings.small} 0;
     position: relative;
+    z-index: ${theme.layers.menu};
   `}
 `
+
 export const LogoWrapper = styled.div`
   ${media.lessThan('medium')`
     position: absolute;
@@ -21,29 +23,32 @@ export const IconWrapper = styled.div`
   ${({ theme }) => css`
     color: ${theme.colors.white};
     cursor: pointer;
-    height: 2.4rem;
     width: 2.4rem;
+    height: 2.4rem;
   `}
 `
 
 export const MenuGroup = styled.div`
   ${({ theme }) => css`
     display: flex;
-    align-items: center;
     flex-grow: 1;
     justify-content: flex-end;
+    align-items: center;
+
     > div {
       margin-left: ${theme.spacings.xsmall};
     }
   `}
 `
+
 export const MenuNav = styled.div`
   ${({ theme }) => css`
     ${media.greaterThan('medium')`
-        margin-left: ${theme.spacings.small};
-     `}
+			margin-left: ${theme.spacings.small};
+		`}
   `}
 `
+
 export const MenuLink = styled.a`
   ${({ theme }) => css`
     position: relative;
@@ -52,6 +57,7 @@ export const MenuLink = styled.a`
     margin: 0.3rem ${theme.spacings.small} 0;
     text-decoration: none;
     text-align: center;
+
     &:hover {
       &::after {
         content: '';
@@ -61,6 +67,7 @@ export const MenuLink = styled.a`
         background-color: ${theme.colors.primary};
         animation: hoverAnimation 0.2s forwards;
       }
+
       @keyframes hoverAnimation {
         from {
           width: 0;
@@ -78,13 +85,15 @@ export const MenuLink = styled.a`
 type MenuFullProps = {
   isOpen: boolean
 }
+
 export const MenuFull = styled.nav<MenuFullProps>`
   ${({ theme, isOpen }) => css`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     background: ${theme.colors.white};
-    position: absolute;
+    position: fixed;
+    z-index: ${theme.layers.menu};
     top: 0;
     bottom: 0;
     left: 0;
@@ -112,6 +121,7 @@ export const MenuFull = styled.nav<MenuFullProps>`
       flex: 1;
       flex-direction: column;
     }
+
     ${MenuLink} {
       color: ${theme.colors.black};
       font-weight: ${theme.font.bold};
@@ -120,6 +130,7 @@ export const MenuFull = styled.nav<MenuFullProps>`
       transform: ${isOpen ? 'translateY(0)' : 'translateY(3rem)'};
       transition: transform 0.3s ease-in-out;
     }
+
     ${RegisterBox} {
       transform: ${isOpen ? 'translateY(0)' : 'translateY(3rem)'};
       transition: transform 0.3s ease-in-out;
@@ -133,6 +144,7 @@ export const RegisterBox = styled.div`
     flex-direction: column;
     align-items: center;
     padding: 0 ${theme.spacings.xlarge} ${theme.spacings.xlarge};
+
     > span {
       display: block;
       margin: ${theme.spacings.xxsmall} 0;

@@ -49,4 +49,4 @@ exports[`<Ribbon /> should render the text correctly 1`] = `
 >
   Best Seller
 </div>
-`;
+`
