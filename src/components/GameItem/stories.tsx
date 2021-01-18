@@ -13,12 +13,12 @@ export default {
 
 export const Default: Story<GameItemProps> = (args) => <GameItem {...args} />
 
-export const withPayment: Story<GameItemProps> = (args) => (
+export const WithPayment: Story<GameItemProps> = (args) => (
   <GameItem {...args} />
 )
 
-withPayment.args = {
-  downloadLink: 'https://wongames.com/game/download/my-game-top-five',
+WithPayment.args = {
+  downloadLink: 'https://wongames.com/game/download/21312ndasd',
   paymentInfo: {
     flag: 'mastercard',
     img: '/img/master-card.png',

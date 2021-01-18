@@ -1,38 +1,47 @@
 import Button from 'components/Button'
 import Heading from 'components/Heading'
 import TextField from 'components/TextField'
+
 import * as S from './styles'
 
 const FormProfile = () => (
   <>
-    <Heading lineBottom color="black" lineColor="primary">
-      My Profile
+    <Heading lineBottom color="black" size="small">
+      My profile
     </Heading>
 
     <S.Form>
-      <TextField name="name" label="Name" initialValue="David Faria" />
       <TextField
-        type="email"
+        name="name"
+        placeholder="Name"
+        label="Name"
+        initialValue="John Doe"
+      />
+
+      <TextField
         name="email"
+        type="email"
+        placeholder="E-mail"
+        initialValue="johndoe@gmail.com"
         label="E-mail"
-        initialValue="davidfaria89@gmail.com"
         disabled
       />
+
       <TextField
-        type="password"
         name="password"
-        label="Password"
+        type="password"
         placeholder="Type your password"
+        label="Password"
       />
 
       <TextField
+        name="new_password"
         type="password"
-        name="password"
-        label="New password"
         placeholder="New password"
+        label="New password"
       />
 
-      <Button>Save</Button>
+      <Button size="large">Save</Button>
     </S.Form>
   </>
 )

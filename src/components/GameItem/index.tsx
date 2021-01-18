@@ -1,10 +1,11 @@
 import { Download } from '@styled-icons/boxicons-solid/Download'
+
 import * as S from './styles'
 
-export type PaymentInfo = {
+export type PaymentInfoProps = {
+  number: string
   flag: string
   img: string
-  number: string
   purchaseDate: string
 }
 
@@ -13,7 +14,7 @@ export type GameItemProps = {
   title: string
   price: string
   downloadLink?: string
-  paymentInfo?: PaymentInfo
+  paymentInfo?: PaymentInfoProps
 }
 
 const GameItem = ({
@@ -25,15 +26,18 @@ const GameItem = ({
 }: GameItemProps) => (
   <S.Wrapper>
     <S.GameContent>
-      <S.ImageBox src={img} alt={title} />
+      <S.ImageBox>
+        <img src={img} alt={title} />
+      </S.ImageBox>
+
       <S.Content>
         <S.Title>
           {title}
           {!!downloadLink && (
             <S.DownloadLink
               href={downloadLink}
-              aria-label={`Get ${title} here`}
               target="_blank"
+              aria-label={`Get ${title} here`}
             >
               <Download size={22} />
             </S.DownloadLink>

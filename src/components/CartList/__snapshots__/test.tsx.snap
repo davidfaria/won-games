@@ -83,6 +83,10 @@ exports[`<CartList /> should render the cart list 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
@@ -124,7 +128,7 @@ exports[`<CartList /> should render the cart list 1`] = `
   }
 }
 
-<main
+<div
   class="c0"
 >
   <div
@@ -133,11 +137,14 @@ exports[`<CartList /> should render the cart list 1`] = `
     <div
       class="c2"
     >
-      <img
-        alt="Red Dead Redemption 2"
+      <div
         class="c3"
-        src="https://source.unsplash.com/user/willianjusten/151x70"
-      />
+      >
+        <img
+          alt="Red Dead Redemption 2"
+          src="https://source.unsplash.com/user/willianjusten/151x70"
+        />
+      </div>
       <div
         class="c4"
       >
@@ -160,11 +167,14 @@ exports[`<CartList /> should render the cart list 1`] = `
     <div
       class="c2"
     >
-      <img
-        alt="Borderlands 3"
+      <div
         class="c3"
-        src="https://source.unsplash.com/user/willianjusten/151x70"
-      />
+      >
+        <img
+          alt="Borderlands 3"
+          src="https://source.unsplash.com/user/willianjusten/151x70"
+        />
+      </div>
       <div
         class="c4"
       >
@@ -184,12 +194,14 @@ exports[`<CartList /> should render the cart list 1`] = `
   <div
     class="c7"
   >
-    Total: 
+    <span>
+      Total:
+    </span>
     <span
       class="c8"
     >
       R$ 330,00
     </span>
   </div>
-</main>
+</div>
 `;
