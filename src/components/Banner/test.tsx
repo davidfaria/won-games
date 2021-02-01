@@ -28,7 +28,7 @@ describe('<Banner />', () => {
     expect(container.firstChild).toMatchSnapshot()
   })
 
-  it('should render a Ribbon', () => {
+  fit('should render a Ribbon', () => {
     renderWithTheme(
       <Banner
         {...props}
