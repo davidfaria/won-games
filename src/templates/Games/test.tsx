@@ -42,8 +42,6 @@ describe('<Games />', () => {
     expect(
       await screen.findByRole('button', { name: /show more/i })
     ).toBeInTheDocument()
-
-    screen.logTestingPlaygroundURL()
   })
 
   it('should render empty when no games found', async () => {
