@@ -25,13 +25,14 @@ export const gamesMock = {
     data: {
       games: [
         {
-          name: 'Shenmue III Deluxe Edition',
-          slug: 'shenmue-iii-deluxe-edition',
+          id: '1',
+          name: 'Sample Game',
+          slug: 'sample-game',
+          price: 518.39,
+          developers: [{ name: 'sample developer' }],
           cover: {
-            url: '/uploads/shenmue_iii_deluxe_edition_53b0e230d9.jpg'
+            url: 'sample-game.jpg'
           },
-          developers: [{ name: 'YS Net' }],
-          price: 50.29,
           __typename: 'Game'
         }
       ],
@@ -52,6 +53,7 @@ export const fetchMoreMock = {
     data: {
       games: [
         {
+          id: '2',
           name: 'Fetch More Game',
           slug: 'fetch-more',
           price: 518.39,

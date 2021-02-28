@@ -19,6 +19,7 @@ export interface QueryGames_games_developers {
 
 export interface QueryGames_games {
   __typename: "Game";
+  id: string;
   name: string;
   slug: string;
   cover: QueryGames_games_cover | null;
@@ -42,7 +43,7 @@ export interface QueryGames {
 }
 
 export interface QueryGamesVariables {
-  limit: number;
+  limit?: number | null;
   start?: number | null;
   where?: any | null;
   sort?: string | null;
