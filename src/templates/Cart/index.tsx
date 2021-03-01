@@ -10,6 +10,7 @@ import Base from 'templates/Base'
 
 import * as S from './styles'
 import Empty from 'components/Empty'
+import { useCart } from 'hooks/use-cart'
 
 export type CartProps = {
   recommendedGames: GameCardProps[]
@@ -17,13 +18,8 @@ export type CartProps = {
 } & CartListProps &
   Pick<PaymentOptionsProps, 'cards'>
 
-const Cart = ({
-  recommendedGames,
-  recommendedHighlight,
-  items,
-  total,
-  cards
-}: CartProps) => {
+const Cart = ({ recommendedGames, recommendedHighlight, cards }: CartProps) => {
+  const { items } = useCart()
   const handlePayment = () => ({})
 
   return (
@@ -35,7 +31,7 @@ const Cart = ({
 
         {items?.length ? (
           <S.Content>
-            <CartList items={items} total={total} />
+            <CartList />
 
             <PaymentOptions cards={cards} handlePayment={handlePayment} />
           </S.Content>

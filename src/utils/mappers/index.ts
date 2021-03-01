@@ -1,5 +1,5 @@
-import { QueryHome_sections_freeGames_highlight } from './../graphql/generated/QueryHome'
-import { QueryGames_games } from './../graphql/generated/QueryGames'
+import { QueryHome_sections_freeGames_highlight } from 'graphql/generated/QueryHome'
+import { QueryGames_games } from 'graphql/generated/QueryGames'
 import { QueryHome_banners } from 'graphql/generated/QueryHome'
 import formatPrice from 'utils/format-price'
 export const bannerMapper = (banners: QueryHome_banners[]) =>
