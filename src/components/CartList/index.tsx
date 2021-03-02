@@ -5,20 +5,32 @@ import GameItem from 'components/GameItem'
 import * as S from './styles'
 import Empty from 'components/Empty'
 import { useCart } from 'hooks/use-cart'
+import Loader from 'components/Loader'
 
 export type CartListProps = {
   hasButton?: boolean
 }
 
 const CartList = ({ hasButton = false }: CartListProps) => {
-  const { items, total } = useCart()
+  const { items, total, loading } = useCart()
+
+  if (loading) {
+    return (
+      <S.Loading>
+        <Loader />
+      </S.Loading>
+    )
+  }
+
   return (
     <S.Wrapper isEmpty={!items.length}>
       {items.length ? (
         <>
-          {items.map((item) => (
-            <GameItem key={item.title} {...item} />
-          ))}
+          <S.GamesList>
+            {items.map((item) => (
+              <GameItem key={item.title} {...item} />
+            ))}
+          </S.GamesList>
 
           <S.Footer>
             {!hasButton && <span>Total:</span>}
