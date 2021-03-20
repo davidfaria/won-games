@@ -12,7 +12,8 @@ import * as S from './styles'
 import { FieldErrors, signInValidate } from 'utils/validations'
 
 const FormSignIn = () => {
-  const { push } = useRouter()
+  const routes = useRouter()
+  const { push, query } = routes
   const [formError, setFormError] = React.useState('')
   const [fieldError, setFieldError] = React.useState<FieldErrors>({
     email: '',
@@ -48,7 +49,7 @@ const FormSignIn = () => {
     const result = await signIn('credentials', {
       ...values,
       redirect: false,
-      callbackUrl: '/'
+      callbackUrl: `${window.location.origin}${query?.callbackUrl || ''}`
     })
 
     if (result?.url) {
