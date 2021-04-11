@@ -1,3 +1,5 @@
+import { render, screen } from 'utils/test-utils'
+
 import galleryMock from 'components/Gallery/mock'
 import gameInfoMock from 'components/GameInfo/mock'
 import gameDetailsMock from 'components/GameDetails/mock'
@@ -6,7 +8,6 @@ import highlightMock from 'components/Highlight/mock'
 
 import Game, { GameTemplateProps } from '.'
 import { GameDetailsProps } from 'components/GameDetails'
-import { render, screen } from 'utils/test-utils'
 
 const props: GameTemplateProps = {
   cover: 'bg-image.jpg',
@@ -14,8 +15,10 @@ const props: GameTemplateProps = {
   gallery: galleryMock,
   description: `<h1>Custom HTML</h1>`,
   details: gameDetailsMock as GameDetailsProps,
+  upcomingTitle: 'Upcoming games',
   upcomingGames: gamesMock,
   upcomingHighlight: highlightMock,
+  recommendedTitle: 'You may like these games',
   recommendedGames: gamesMock
 }
 

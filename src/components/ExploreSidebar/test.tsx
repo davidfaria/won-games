@@ -1,5 +1,5 @@
-import userEvent from '@testing-library/user-event'
 import { render, screen } from 'utils/test-utils'
+import userEvent from '@testing-library/user-event'
 import { css } from 'styled-components'
 
 import ExploreSidebar from '.'
