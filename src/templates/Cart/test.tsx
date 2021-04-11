@@ -1,17 +1,15 @@
 import 'match-media-mock'
-
 import { render, screen } from 'utils/test-utils'
 
 import gamesMock from 'components/GameCardSlider/mock'
 import highlightMock from 'components/Highlight/mock'
-import items from 'components/CartList/mock'
 import cardsMock from 'components/PaymentOptions/mock'
 
 import Cart from '.'
-import { CartContextDefaultValues } from 'hooks/use-cart'
 
 const props = {
   cards: cardsMock,
+  recommendedTitle: 'You may like these games',
   recommendedHighlight: highlightMock,
   recommendedGames: gamesMock
 }
@@ -53,12 +51,7 @@ jest.mock('components/Empty', () => ({
 
 describe('<Cart />', () => {
   it('should render sections', () => {
-    const cartProviderProps = {
-      ...CartContextDefaultValues,
-      items,
-      total: '$ 430,00'
-    }
-    render(<Cart {...props} />, { cartProviderProps })
+    render(<Cart {...props} />)
 
     expect(
       screen.getByRole('heading', { name: /my cart/i })
