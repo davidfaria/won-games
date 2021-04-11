@@ -3,7 +3,7 @@ import NextNprogress from 'nextjs-progressbar'
 import Head from 'next/head'
 import { ApolloProvider } from '@apollo/client'
 import { CartProvider } from 'hooks/use-cart'
-import { WhishlistProvider } from 'hooks/use-wishlist'
+import { WishlistProvider } from 'hooks/use-wishlist'
 import { AppProps } from 'next/app'
 import { ThemeProvider } from 'styled-components'
 import { useApollo } from 'utils/apollo'
@@ -18,7 +18,7 @@ function App({ Component, pageProps }: AppProps) {
       <ApolloProvider client={client}>
         <ThemeProvider theme={theme}>
           <CartProvider>
-            <WhishlistProvider>
+            <WishlistProvider>
               <Head>
                 <title>Won Games</title>
                 <link rel="shortcut icon" href="/img/icon-512.png" />
@@ -37,7 +37,7 @@ function App({ Component, pageProps }: AppProps) {
                 height={5}
               />
               <Component {...pageProps} />
-            </WhishlistProvider>
+            </WishlistProvider>
           </CartProvider>
         </ThemeProvider>
       </ApolloProvider>
