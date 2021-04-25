@@ -7,7 +7,7 @@ import formatPrice from 'utils/format-price'
 
 const CART_KEY = 'cartItems'
 
-type CartItem = {
+export type CartItem = {
   id: string
   img: string
   title: string
