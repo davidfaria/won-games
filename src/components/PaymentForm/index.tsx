@@ -1,17 +1,19 @@
+import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
-import { Session } from 'next-auth/client'
+import { useRouter } from 'next/router'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
-import { StripeCardElementChangeEvent } from '@stripe/stripe-js'
+import { PaymentIntent, StripeCardElementChangeEvent } from '@stripe/stripe-js'
 import { ErrorOutline, ShoppingCart } from '@styled-icons/material-outlined'
 
+import { useCart } from 'hooks/use-cart'
 import Button from 'components/Button'
 import Heading from 'components/Heading'
-import { FormLoading } from 'components/Form'
 
-import { useCart } from 'hooks/use-cart'
-import { createPaymentIntent } from 'utils/stripe/methods'
 import * as S from './styles'
-import { useRouter } from 'next/router'
+import { createPayment, createPaymentIntent } from 'utils/stripe/methods'
+
+import { FormLoading } from 'components/Form'
+import { Session } from 'next-auth'
 
 type PaymentFormProps = {
   session: Session
@@ -19,50 +21,15 @@ type PaymentFormProps = {
 
 const PaymentForm = ({ session }: PaymentFormProps) => {
   const { items } = useCart()
+  const { push } = useRouter()
   const stripe = useStripe()
   const elements = useElements()
-  const router = useRouter()
+
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [disabled, setDisabled] = useState(true)
   const [clientSecret, setClientSecret] = useState('')
   const [freeGames, setFreeGames] = useState(false)
-
-  const handleChange = async (event: StripeCardElementChangeEvent) => {
-    setDisabled(event.empty)
-    setError(event.error ? event.error.message : '')
-  }
-
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault()
-    setLoading(true)
-
-    // se for freeGames
-    if (freeGames) {
-      // salva no banco
-      // redireciona para success
-      router.push('/success')
-      return
-    }
-
-    const payload = await stripe!.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: elements!.getElement(CardElement)!
-      }
-    })
-
-    if (payload.error) {
-      setError(`Payment failed ${payload.error.message}`)
-      setLoading(false)
-    } else {
-      setError(null)
-      setLoading(false)
-
-      // salvar a compra no banco do Strapi
-      // redirectionar para a página de Sucesso
-      router.push('/success')
-    }
-  }
 
   useEffect(() => {
     async function setPaymentMode() {
@@ -70,7 +37,7 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
         // bater na API /orders/create-payment-intent
         const data = await createPaymentIntent({
           items,
-          token: session.jwt
+          token: session.jwt as string
         })
 
         // se eu receber freeGames: true => setFreeGames
@@ -95,6 +62,58 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
 
     setPaymentMode()
   }, [items, session])
+
+  const handleChange = async (event: StripeCardElementChangeEvent) => {
+    setDisabled(event.empty)
+    setError(event.error ? event.error.message : '')
+  }
+
+  const saveOrder = async (paymentIntent?: PaymentIntent) => {
+    const data = await createPayment({
+      items,
+      paymentIntent,
+      token: session.jwt as string
+    })
+
+    return data
+  }
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault()
+    setLoading(true)
+
+    // se for freeGames
+    if (freeGames) {
+      // salva no banco
+      // bater na API /orders
+      saveOrder()
+
+      // redireciona para success
+      push('/success')
+      return
+    }
+
+    const payload = await stripe!.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: elements!.getElement(CardElement)!
+      }
+    })
+
+    if (payload.error) {
+      setError(`Payment failed ${payload.error.message}`)
+      setLoading(false)
+    } else {
+      setError(null)
+      setLoading(false)
+
+      // salvar a compra no banco do Strapi
+      // bater na API /orders
+      saveOrder(payload.paymentIntent)
+
+      // redirectionar para a página de Sucesso
+      push('/success')
+    }
+  }
 
   return (
     <S.Wrapper>
@@ -128,9 +147,11 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
           )}
         </S.Body>
         <S.Footer>
-          <Button as="a" fullWidth minimal>
-            Continue shopping
-          </Button>
+          <Link href="/" passHref>
+            <Button as="a" fullWidth minimal>
+              Continue shopping
+            </Button>
+          </Link>
           <Button
             fullWidth
             icon={loading ? <FormLoading /> : <ShoppingCart />}
