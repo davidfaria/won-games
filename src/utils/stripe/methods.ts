@@ -1,4 +1,3 @@
-
 import { PaymentIntent } from '@stripe/stripe-js'
 import { CartItem } from 'hooks/use-cart'
 
@@ -21,7 +20,6 @@ const fetcher = async ({ url, body, token }: FetcherParams) => {
   return await response.json()
 }
 
-
 type PaymentIntentParams = {
   items: CartItem[]
   token: string
@@ -31,7 +29,6 @@ export const createPaymentIntent = async ({
   items,
   token
 }: PaymentIntentParams) => {
-
   return fetcher({
     url: '/orders/create-payment-intent',
     body: JSON.stringify({ cart: items }),
@@ -58,4 +55,5 @@ export const createPayment = ({
       paymentMethod: paymentIntent?.payment_method
     }),
     token
-  })}
+  })
+}
