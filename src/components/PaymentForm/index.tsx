@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Session } from 'next-auth/client'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
+
 import { PaymentIntent, StripeCardElementChangeEvent } from '@stripe/stripe-js'
 import { ErrorOutline, ShoppingCart } from '@styled-icons/material-outlined'
 
@@ -33,6 +34,7 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
     setError(event.error ? event.error.message : '')
   }
 
+
   const saveOrder = async (paymentIntent?: PaymentIntent) => {
     const data = await createPayment({
       items,
@@ -50,6 +52,7 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
     // se for freeGames
     if (freeGames) {
       // salva no banco
+
       saveOrder()
       // redireciona para success
       router.push('/success')
